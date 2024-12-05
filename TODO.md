@@ -12,10 +12,10 @@
 # Functionality
 - [X] The first valid command is a PLACE command. Subsequent commands can be issued in any order, including another PLACE command (i.e. you can click another space and it would place the original toy robot on that space).
 - [X] Clicking on a table space will PLACE the robot on the table at the selected position (using x, y coordinates) facing North.
-- [] The robot can move freely on the tabletop but cannot fall off.
+- [X] The robot can move freely on the tabletop but cannot fall off.
 - [X] The origin (0, 0) is at the SOUTHWEST corner of the table (bottom left).
-- [] Clicking MOVE will move the toy robot one space forward in the direction it is currently facing.
-- [] Clicking LEFT and RIGHT will rotate the robot 90 degrees in the specified direction without changing the position of the robot.
+- [X] Clicking MOVE will move the toy robot one space forward in the direction it is currently facing.
+- [X] Clicking LEFT and RIGHT will rotate the robot 90 degrees in the specified direction without changing the position of the robot.
 - [X] Clicking REPORT will announce the X,Y position and F (facing direction) of the robot.
 - [X] A robot not on the table ignores commands.
 - [] Commands can be issued via buttons on the page or arrow keys 

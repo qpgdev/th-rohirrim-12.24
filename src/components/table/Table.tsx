@@ -61,10 +61,105 @@ const tableStyles = {
   } as React.CSSProperties,
 };
 
+let hasBeenPlaced: boolean = false;
+
 function Table(): JSX.Element {
-  // Initialize state to track robot's position and direction
   const [robotPosition, setRobotPosition] = useState<string | null>(null); // Position of the robot in the format '[x,y]'
   const [direction, setDirection] = useState<RobotDirection>('North'); // Direction of the robot
+
+  const generateCoordinates = () => {
+    const coordinates: string[] = [];
+    for (let y = 4; y >= 0; y--) {
+      for (let x = 0; x < 5; x++) {
+        coordinates.push(`[${x},${y}]`);
+      }
+    }
+    return coordinates;
+  };
+
+  const tableTiles = generateCoordinates();
+
+  // Handle placing the robot
+  const handleTileClick = (coords: string) => {
+    hasBeenPlaced = true;
+    setRobotPosition(coords);
+  };
+
+  // Move the robot based on its direction
+  const moveRobot = () => {
+    if (robotPosition) {
+      let [x, y] = robotPosition.slice(1, -1).split(',').map(Number);
+      
+      switch (direction) {
+        case 'North':
+          if (y < 4) y += 1; // Move up
+          break;
+        case 'South':
+          if (y > 0) y -= 1; // Move down
+          break;
+        case 'West':
+          if (x > 0) x -= 1; // Move left
+          break;
+        case 'East':
+          if (x < 4) x += 1; // Move right
+          break;
+      }
+      setRobotPosition(`[${x},${y}]`);
+    }
+  };
+
+  // Turn the robot left
+  const turnLeft = () => {
+    if (hasBeenPlaced === true) {
+      switch (direction) {
+        case 'North':
+          setDirection('West');
+          break;
+        case 'West':
+          setDirection('South');
+          break;
+        case 'South':
+          setDirection('East');
+          break;
+        case 'East':
+          setDirection('North');
+          break;
+      }
+    } else {
+      alert('Robot has not been placed.')
+    }
+  };
+
+  // Turn the robot right
+  const turnRight = () => {
+    if (hasBeenPlaced === true) {
+      switch (direction) {
+        case 'North':
+          setDirection('East');
+          break;
+        case 'East':
+          setDirection('South');
+          break;
+        case 'South':
+          setDirection('West');
+          break;
+        case 'West':
+          setDirection('North');
+          break;
+      } 
+    } else {
+      alert('Robot has not been placed.')
+    }
+  };
+
+  // Report the robot's position
+  const reportPosition = (robotPosition: string | null) => {
+    if (robotPosition) {
+      alert(`Robot is at coordinates ${robotPosition} and facing ${direction}.`);
+    } else {
+      alert("Robot is not placed on the grid yet.");
+    }
+  };
 
   // Render the relevant image based on the direction of the robot
   const getRobotImage = (direction: RobotDirection): JSX.Element => {
@@ -72,7 +167,7 @@ function Table(): JSX.Element {
       case 'North':
         return (
           <div>
-            <p style={tableStyles.robotTextStyle}>&#9650; North</p>
+            <p style={tableStyles.robotTextStyle}>&uarr; North</p>
             <img src={reactImg} alt="Robot North" />
           </div>
         );
@@ -80,7 +175,7 @@ function Table(): JSX.Element {
         return (
           <div>
             <img src={reactImg} alt="Robot South" />
-            <p style={tableStyles.robotTextStyle}>&#9660; South</p>
+            <p style={tableStyles.robotTextStyle}>&darr; South</p>
           </div>
         );
       case 'West':
@@ -100,36 +195,10 @@ function Table(): JSX.Element {
       default:
         return (
           <div>
-            <p style={tableStyles.robotTextStyle}>&#9650; default</p>
-            <img src={reactImg} alt="Robot default" />
+            <p style={tableStyles.robotTextStyle}>&#9650; Default</p>
+            <img src={reactImg} alt="Robot Default" />
           </div>
         );
-    }
-  };
-
-  // Generate the coordinate array for the grid
-  const generateCoordinates = () => {
-    const coordinates: string[] = [];
-    for (let y = 4; y >= 0; y--) {
-      for (let x = 0; x < 5; x++) {
-        coordinates.push(`[${x},${y}]`);
-      }
-    }
-    return coordinates;
-  };
-
-  const tableTiles = generateCoordinates();
-
-  // When a tile is clicked, update the robot's position
-  const handleTileClick = (coords: string) => {
-    setRobotPosition(coords); // Update the robot's position on tile click
-  };
-
-  const reportPosition = (robotPosition: string | null) => {
-    if (robotPosition) {
-      alert(`Robot is at coordinates ${robotPosition} and facing ${direction}.`);
-    } else {
-      alert("Robot is not placed on the grid yet.");
     }
   };
 
@@ -146,7 +215,7 @@ function Table(): JSX.Element {
           >
             {item}
             {/* If the robot is on this tile, render its image */}
-            {robotPosition === item && <Robot robotImage={getRobotImage(direction)} />}
+            {robotPosition === item && getRobotImage(direction)}
           </div>
         ))}
       </div>
@@ -156,17 +225,17 @@ function Table(): JSX.Element {
         <Button
           style={tableStyles.defaultButtonStyle}
           text="Left"
-          onClick={() => console.log('Left button clicked!')}
+          onClick={turnLeft}
         />
         <Button
           style={tableStyles.defaultButtonStyle}
           text="Move"
-          onClick={() => console.log('Move button clicked!')}
+          onClick={moveRobot}
         />
         <Button
           style={tableStyles.defaultButtonStyle}
           text="Right"
-          onClick={() => console.log('Right button clicked!')}
+          onClick={turnRight}
         />
       </div>
       <Button
