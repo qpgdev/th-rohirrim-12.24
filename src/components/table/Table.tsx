@@ -21,7 +21,6 @@ const tableStyles = {
     color: 'white',
     paddingTop: '15px',
     paddingBottom: '15px',
-    marginBottom: '40px',
     borderRadius: '10px',
     width: '60%',
   } as React.CSSProperties,
@@ -31,6 +30,7 @@ const tableStyles = {
     display: 'grid',
     gridTemplateColumns: 'repeat(5, 1fr)',
     gridTemplateRows: 'repeat(5, 1fr)',
+    margin: '40px',
     width: '60%',
     height: '60%',
   } as React.CSSProperties,
@@ -51,6 +51,13 @@ const tableStyles = {
     margin: '10px',
     background: 'teal',
     width: '80px'
+  } as React.CSSProperties,
+
+  reportButtonStyle: {
+    background: '#313339',
+    border: '1px solid teal',
+    color: 'white',
+    width: '100px'
   } as React.CSSProperties,
 };
 
@@ -139,22 +146,24 @@ function Table(): JSX.Element {
           style={tableStyles.defaultButtonStyle}
           text="Left"
           onClick={() => console.log('Button clicked!')}
-        >
-        </Button>
+        />
         <Button 
           style={tableStyles.defaultButtonStyle}
           text="Move"
           onClick={() => console.log('Button clicked!')}
-        >
-        </Button>
+        />
         <Button 
           style={tableStyles.defaultButtonStyle}
           text="Right"
           onClick={() => console.log('Button clicked!')}
-        >  
-        </Button>
+        />
       </div>
-      <Robot robotImage={getImageForDirection(direction)}></Robot>{/*TODO: Remove, should be spawned in*/}
+      <Button
+        style={tableStyles.reportButtonStyle}
+        text="Report"
+        onClick={() => console.log('Button clicked!')}
+      ></Button>
+      <Robot robotImage={getImageForDirection(direction)}/>{/*TODO: Remove, should be spawned in*/}
     </div>
   );
 }
