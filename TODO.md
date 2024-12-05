@@ -3,23 +3,23 @@
 - [X] Create the 5x5 grid using the tile component
 - [X] Create the robot
 - [X] Create a button component
-- [] Create the LEFT button
-- [] Create the RIGHT button
-- [] Create the MOVE button
-- [] Create an X, Y component that tracks the state of the robot's location
+- [X] Create the LEFT button
+- [X] Create the RIGHT button
+- [X] Create the MOVE button
+- [X] Create an alert that displays the coordinates
 - [X] Create the textbox
 
 # Functionality
-- [] The first valid command is a PLACE command. Subsequent commands can be issued in any order, including another PLACE command (i.e. you can click another space and it would place the original toy robot on that space).
-- [] Clicking on a table space will PLACE the robot on the table at the selected position (using x, y coordinates) facing North.
+- [X] The first valid command is a PLACE command. Subsequent commands can be issued in any order, including another PLACE command (i.e. you can click another space and it would place the original toy robot on that space).
+- [X] Clicking on a table space will PLACE the robot on the table at the selected position (using x, y coordinates) facing North.
 - [] The robot can move freely on the tabletop but cannot fall off.
-- [] The origin (0, 0) is at the SOUTHWEST corner of the table (bottom left).
+- [X] The origin (0, 0) is at the SOUTHWEST corner of the table (bottom left).
 - [] Clicking MOVE will move the toy robot one space forward in the direction it is currently facing.
 - [] Clicking LEFT and RIGHT will rotate the robot 90 degrees in the specified direction without changing the position of the robot.
-- [] Clicking REPORT will announce the X,Y position and F (facing direction) of the robot.
-- [] A robot not on the table ignores commands.
+- [X] Clicking REPORT will announce the X,Y position and F (facing direction) of the robot.
+- [X] A robot not on the table ignores commands.
 - [] Commands can be issued via buttons on the page or arrow keys 
-- [] Provide test instructions to exercise the application.
+- [X] Provide test instructions to exercise the application.
 
 # Testing
 

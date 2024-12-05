@@ -62,38 +62,39 @@ const tableStyles = {
 };
 
 function Table(): JSX.Element {
-
-  const [direction, setDirection] = useState<RobotDirection>('up');
+  // Initialize state to track robot's position and direction
+  const [robotPosition, setRobotPosition] = useState<string | null>(null); // Position of the robot in the format '[x,y]'
+  const [direction, setDirection] = useState<RobotDirection>('North'); // Direction of the robot
 
   // Render the relevant image based on the direction of the robot
-  const getImageForDirection = (direction: RobotDirection): JSX.Element => {
+  const getRobotImage = (direction: RobotDirection): JSX.Element => {
     switch (direction) {
-      case 'up':
+      case 'North':
         return (
           <div>
-            <p style={tableStyles.robotTextStyle}>&#9650; up</p> {/* Up Arrow */}
-            <img src={reactImg} alt="Robot up" />
+            <p style={tableStyles.robotTextStyle}>&#9650; North</p>
+            <img src={reactImg} alt="Robot North" />
           </div>
         );
-      case 'down':
+      case 'South':
         return (
           <div>
-            <img src={reactImg} alt="Robot down" />
-            <p style={tableStyles.robotTextStyle}>&#9660; down</p> {/* Down Arrow */}
+            <img src={reactImg} alt="Robot South" />
+            <p style={tableStyles.robotTextStyle}>&#9660; South</p>
           </div>
         );
-      case 'left':
+      case 'West':
         return (
           <div>
-            <p style={tableStyles.robotTextStyle}>&#8592; left</p> {/* Left Arrow */}
-            <img src={reactImg} alt="Robot left" />
+            <p style={tableStyles.robotTextStyle}>&#8592; West</p>
+            <img src={reactImg} alt="Robot West" />
           </div>
         );
-      case 'right':
+      case 'East':
         return (
           <div>
-            <p style={tableStyles.robotTextStyle}>&#8594; right</p> {/* Right Arrow */}
-            <img src={reactImg} alt="Robot right" />
+            <p style={tableStyles.robotTextStyle}>&#8594; East</p>
+            <img src={reactImg} alt="Robot East" />
           </div>
         );
       default:
@@ -119,51 +120,60 @@ function Table(): JSX.Element {
 
   const tableTiles = generateCoordinates();
 
-  // When a tile is clicked
+  // When a tile is clicked, update the robot's position
   const handleTileClick = (coords: string) => {
-    // Render the Robot within the clicked grid tile
-    alert(`You clicked tile at coordinates: ${coords}`);
+    setRobotPosition(coords); // Update the robot's position on tile click
+  };
+
+  const reportPosition = (robotPosition: string | null) => {
+    if (robotPosition) {
+      alert(`Robot is at coordinates ${robotPosition} and facing ${direction}.`);
+    } else {
+      alert("Robot is not placed on the grid yet.");
+    }
   };
 
   return (
     <div style={tableStyles.containerStyle}>
       <p style={tableStyles.textBoxStyle}>Click to place the robot, use the buttons or arrows to move</p>
-      <div 
-        className="table" 
-        style={tableStyles.gridStyle}>
+      <div className="table" style={tableStyles.gridStyle}>
         {tableTiles.map((item, index) => (
-            <div 
-              key={index} 
-              className="tileItem" 
-              style={tableStyles.tileStyle}
-              onClick={() => handleTileClick(item)}>
-                {item}
-            </div>
+          <div
+            key={index}
+            className="tileItem"
+            style={tableStyles.tileStyle}
+            onClick={() => handleTileClick(item)}
+          >
+            {item}
+            {/* If the robot is on this tile, render its image */}
+            {robotPosition === item && <Robot robotImage={getRobotImage(direction)} />}
+          </div>
         ))}
       </div>
+
+      {/* Buttons to move the robot */}
       <div>
-        <Button 
+        <Button
           style={tableStyles.defaultButtonStyle}
           text="Left"
-          onClick={() => console.log('Button clicked!')}
+          onClick={() => console.log('Left button clicked!')}
         />
-        <Button 
+        <Button
           style={tableStyles.defaultButtonStyle}
           text="Move"
-          onClick={() => console.log('Button clicked!')}
+          onClick={() => console.log('Move button clicked!')}
         />
-        <Button 
+        <Button
           style={tableStyles.defaultButtonStyle}
           text="Right"
-          onClick={() => console.log('Button clicked!')}
+          onClick={() => console.log('Right button clicked!')}
         />
       </div>
       <Button
         style={tableStyles.reportButtonStyle}
         text="Report"
-        onClick={() => console.log('Button clicked!')}
-      ></Button>
-      <Robot robotImage={getImageForDirection(direction)}/>{/*TODO: Remove, should be spawned in*/}
+        onClick={() => reportPosition(robotPosition)}
+      />
     </div>
   );
 }

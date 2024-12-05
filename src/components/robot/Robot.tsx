@@ -1,4 +1,4 @@
-export type RobotDirection = 'up' | 'down' | 'left' | 'right';
+export type RobotDirection = 'North' | 'South' | 'West' | 'East';
 
 interface RobotProps {
     robotImage: JSX.Element;
