@@ -1,50 +1,40 @@
-# React + TypeScript + Vite
+# Toy Robot Simulator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Running the App
+Run the following commands in your CLI:
+``` 
+npm install
+npm run dev
 ```
+Navigate to [http://localhost:5173/].
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Follow the testing instructions below:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Test Instructions to Exercise the Application
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- **Scenario 1: Basic Placement and Movement**
+  1. Place the robot at the origin (0, 0).
+  2. Move the robot forward.
+  3. Report the robot’s position.
+  4. Rotate the robot and move again.
+  5. Report the robot’s new position.
+
+- **Scenario 2: Edge Case**
+  1. Place the robot at (0, 0).
+  2. Rotate it and try to move it off the edge (ensure it does not fall off the table).
+  3. Report the position to ensure it’s within bounds.
+
+- **Scenario 3: Multiple Commands**
+  1. Place the robot at a random position.
+  2. Rotate it, move it, and rotate again.
+  3. Report the position after each command to ensure correctness.
+
+- **Scenario 4: Robot on Table and No Movement**
+  1. Place the robot at (2, 2).
+  2. Click REPORT without issuing any MOVE, LEFT, or RIGHT commands.
+  3. Ensure the robot’s position is (2, 2) and facing North.
+
+- **Scenario 5: Invalid Command Handling**
+  1. Issue a PLACE command when the robot is already on the table.
+  2. Ensure that the robot’s new position is correctly updated.
+  3. Issue MOVE commands at the edges of the grid to test boundary behavior.
