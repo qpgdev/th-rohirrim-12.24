@@ -40,6 +40,9 @@ const tableStyles = {
     color: 'white',
     boxSizing: 'border-box',
     position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
   } as React.CSSProperties,
 
   robotTextStyle: {
@@ -167,36 +170,29 @@ function Table(): JSX.Element {
       case 'North':
         return (
           <div>
-            <p style={tableStyles.robotTextStyle}>&uarr; North</p>
+            <p style={tableStyles.robotTextStyle}>&uarr;</p>
             <img src={reactImg} alt="Robot North" />
           </div>
         );
       case 'South':
         return (
           <div>
+            <p style={tableStyles.robotTextStyle}>&darr;</p>
             <img src={reactImg} alt="Robot South" />
-            <p style={tableStyles.robotTextStyle}>&darr; South</p>
           </div>
         );
       case 'West':
         return (
           <div>
-            <p style={tableStyles.robotTextStyle}>&#8592; West</p>
+            <p style={tableStyles.robotTextStyle}>&#8592;</p>
             <img src={reactImg} alt="Robot West" />
           </div>
         );
       case 'East':
         return (
           <div>
-            <p style={tableStyles.robotTextStyle}>&#8594; East</p>
+            <p style={tableStyles.robotTextStyle}>&#8594;</p>
             <img src={reactImg} alt="Robot East" />
-          </div>
-        );
-      default:
-        return (
-          <div>
-            <p style={tableStyles.robotTextStyle}>&#9650; Default</p>
-            <img src={reactImg} alt="Robot Default" />
           </div>
         );
     }
@@ -213,7 +209,8 @@ function Table(): JSX.Element {
             style={tableStyles.tileStyle}
             onClick={() => handleTileClick(item)}
           >
-            {item}
+            {/* DEBUG: This ITEM is for debugging the coords*/}
+            {/* {item} */}
             {/* If the robot is on this tile, render its image */}
             {robotPosition === item && getRobotImage(direction)}
           </div>
