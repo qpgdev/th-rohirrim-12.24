@@ -1,6 +1,5 @@
 import reactImg from '@/assets/react.svg';
-import { useState } from 'react';
-import Robot, {RobotDirection} from '@/components/robot/Robot.tsx';
+import { useState, useEffect } from 'react';
 import Button from '@/components/button/Button.tsx';
 
 const tableStyles = {
@@ -63,6 +62,8 @@ const tableStyles = {
     width: '100px'
   } as React.CSSProperties,
 };
+
+type RobotDirection = 'North' | 'South' | 'West' | 'East';
 
 let hasBeenPlaced: boolean = false;
 
@@ -195,8 +196,35 @@ function Table(): JSX.Element {
             <img src={reactImg} alt="Robot East" />
           </div>
         );
+      default:
+        return (
+          <div>
+            <p style={tableStyles.robotTextStyle}>&uarr;</p>
+            <img src={reactImg} alt="Robot North" />
+          </div>
+        );
     }
   };
+
+  // Listen for keydown events to handle arrow keys for turning the robot
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'ArrowLeft') {
+        turnLeft();
+      } else if (event.key === 'ArrowRight') {
+        turnRight();
+      } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        moveRobot();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [direction, robotPosition]);
+  
 
   return (
     <div style={tableStyles.containerStyle}>

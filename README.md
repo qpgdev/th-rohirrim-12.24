@@ -38,3 +38,8 @@ Follow the testing instructions below:
   1. Issue a PLACE command when the robot is already on the table.
   2. Ensure that the robot’s new position is correctly updated.
   3. Issue MOVE commands at the edges of the grid to test boundary behavior.
+
+- **If I had more time...**
+  1. Separate Robot logic into its own component.
+  2. Move stylings into separate dir.
+  3. Add unit / integration tests. 

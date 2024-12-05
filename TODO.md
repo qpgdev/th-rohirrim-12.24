@@ -18,7 +18,7 @@
 - [X] Clicking LEFT and RIGHT will rotate the robot 90 degrees in the specified direction without changing the position of the robot.
 - [X] Clicking REPORT will announce the X,Y position and F (facing direction) of the robot.
 - [X] A robot not on the table ignores commands.
-- [] Commands can be issued via buttons on the page or arrow keys 
+- [X] Commands can be issued via buttons on the page or arrow keys 
 - [X] Provide test instructions to exercise the application.
 
 # Testing
@@ -115,3 +115,4 @@
 ## Misc
 - [] App.tsx Table import >> Cannot find module '@/components/table/Table.tsx' or its corresponding type declarations.
 - [] Delete App.css and remove import
+- [] Delete / refactor the Robot component
